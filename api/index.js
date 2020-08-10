@@ -14,8 +14,8 @@ app.get('/',(req,res) => {
 
 app.get('/jobs', async(req,res) => {
     const jobs = await getAsync('mykey')
-    console.log(JSON.parse(jobs).length)
-    res.send('Sent!')
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.send(jobs)
 })
 
 app.listen(port, (req,res) => {

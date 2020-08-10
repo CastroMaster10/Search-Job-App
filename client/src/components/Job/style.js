@@ -5,7 +5,7 @@ width: 80%;
 margin: 0 auto;
 justify-content: space-evenly ;
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr;
 `
 
 export const Line = styled.div`

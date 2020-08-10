@@ -4,11 +4,10 @@ import {ListJobs} from './components/ListJobs'
 
 const API_URL = 'http://localhost:3001/jobs'
 
-const FetchJobs = async (re) => {
-  const res = await fetch('API')
+const FetchJobs = async (updateCb) => {
+  const res = await fetch(API_URL)
   const json = await res.json();
-
-  console.log({ json })
+  updateCb(json)
 }
 
 function App() {
@@ -21,9 +20,8 @@ function App() {
     { title: 'Software developer', company: "Google", position: "manager" }
   ];
 
-  useEffect((ex ) => {
-
-    FetchJobs();
+  useEffect(() => {
+    FetchJobs(updateJobs);
   }, [])
 
   return (
