@@ -1,14 +1,23 @@
 import React from 'react';
-import {Div,Line,H4 } from './style'
+import {Div, SubDiv} from './style'
 
 export const Job = ({job}) => {
+
+
     return(
       <>
       <Div>
-        <H4>{job.title}</H4>
-        <H4>{job.company}</H4>
+        <div>
+          <h5>{job.type}</h5>
+          <h3>{job.title}</h3>
+          <p>{job.company}</p>
+        </div>
+        <div></div>  
+        <SubDiv>
+          <div></div>
+          <p>{job.created_at.split(' ').slice(0, 4).join(' ')}</p>
+        </SubDiv>
       </Div>  
-      <Line> </Line>
       </>
     );
 }
