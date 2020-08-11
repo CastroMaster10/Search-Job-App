@@ -22,6 +22,8 @@ const useStyles = makeStyles({
 
 
 
+
+
 export const ListJobs = ({jobs}) => {
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -60,7 +62,7 @@ export const ListJobs = ({jobs}) => {
     return(
         <Div>
         <JobModal open= {open} job= {selectedJob} handleClose = {handleClose} />
-        <Typography variant='h3' component='h1'>Job searching</Typography>
+        <Typography variant='h3' component='h1'>Job searching for Jr. developers</Typography>
         <Typography variant='p' component='p'> Found {numJobs}</Typography>
         {
             NumCurrentPage.map((job, l) => {
@@ -82,7 +84,7 @@ export const ListJobs = ({jobs}) => {
                 activeStep={activeStep}
                 className={classes.root}
                 nextButton={
-                    <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+                    <Button size="small" onClick={handleNext} disabled={activeStep === (numPages - 1)}>
                         Next
           {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                     </Button>
