@@ -6,7 +6,10 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'; 
+import {JobModal} from '../JobModal'
+import { useState } from 'react';
+
 
 const useStyles = makeStyles({
     root: {
@@ -17,13 +20,17 @@ const useStyles = makeStyles({
 
 
 
+
+
 export const ListJobs = ({jobs}) => {
 
     const [activeStep, setActiveStep] = React.useState(0);
+    const [selectedJob, selectJob] = useState({})  //this is a way to save the data from the api and manipulated inside the JobModal component
     const classes = useStyles();
     const theme = useTheme();
     const numJobs = jobs.length
     const numPages = Math.ceil(numJobs / 50)
+  
 
     const NumCurrentPage = jobs.slice((activeStep * 50), (activeStep * 50) + 50)
 
@@ -35,17 +42,36 @@ export const ListJobs = ({jobs}) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    //modal
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    
+
     console.log('Jobs:', jobs[0]);
 
     return(
         <Div>
+        <JobModal open= {open} job= {selectedJob} handleClose = {handleClose} />
         <Typography variant='h3' component='h1'>Job searching</Typography>
         <Typography variant='p' component='p'> Found {numJobs}</Typography>
         {
             NumCurrentPage.map((job, l) => {
-               return <Job key ={l} job = {job}/>
+               return(<Job key ={l} job = {job} onClick= {() => {
+                   handleClickOpen();
+                   selectJob(job)
+               }}/>)
             })
         }
+        <div style = {{margin: 'auto' }}>
+
         <small>
             Page {activeStep + 1} of {numPages}
         </small>
@@ -68,6 +94,7 @@ export const ListJobs = ({jobs}) => {
         </Button>
                 }
             />
+        </div>
     </Div>
     );
 }
