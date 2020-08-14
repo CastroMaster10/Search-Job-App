@@ -4,23 +4,29 @@ import {ListJobs} from './components/ListJobs'
 
 const API_URL = 'http://localhost:3001/jobs'
 
-const FetchJobs = async (updateCb) => {
-  const res = await fetch(API_URL)
-  const json = await res.json();
-  updateCb(json)
-}
 
 function App() {
 
   const [jobs, updateJobs] = useState([]);
+  const [error,updateError] = useState(false)
 
-  useEffect(() => {
-    FetchJobs(updateJobs);
+  useEffect( () => {
+  const Fetching = async () => {
+    try {
+      const res = await fetch(API_URL)
+      const json = await res.json();
+      updateJobs(json)
+    } catch (error) {
+      console.log('There was an error,', error)
+      updateError(true)
+    }
+  }
+  Fetching();
   }, [])
 
   return (
     <>
-    <ListJobs jobs= {jobs}/>
+    <ListJobs jobs= {jobs} catchingError = {error}/>
     </> 
   );
 }

@@ -8,3 +8,9 @@ margin: 0 auto;
 text-align: center;
 `;
 
+export const LoaderWrapper = styled.div`
+width: 100%;
+height: 100vh;
+margin: 200px 0;
+`
+
