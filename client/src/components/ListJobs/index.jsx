@@ -59,7 +59,7 @@ export const ListJobs = ({ jobs, catchingError}) => {
 
     
 
-    console.log('Jobs:', jobs[0]);
+    // console.log('Jobs:', jobs[0]);
     return(
         <>
            {

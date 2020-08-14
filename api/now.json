@@ -1,0 +1,11 @@
+{
+  "name": "api-search-app",
+  "version": 2,
+  "builds": [
+    {
+      "src": "indexApi.js",
+      "use": "@now/node-server"
+    }
+  ],
+  "routes": [{ "src": "/.*", "dest": "indexApi.js" }]
+}

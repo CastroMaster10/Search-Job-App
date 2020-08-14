@@ -2,9 +2,17 @@ const express = require('express');
 const app =  new express();
 const {port} = require('./config')
 const redis = require("redis");
-const client = redis.createClient();
+const client = redis.createClient({
+    host: 'redis-10311.c8.us-east-1-4.ec2.cloud.redislabs.com',
+    port: '10311',
+    password: 'CIgEc321z5OkukPtqR34aG1scv3hXRIE'
+});
 const { promisify } = require("util");
 const getAsync = promisify(client.get).bind(client);
+
+client.on('connect', () => {
+    console.log('Connected to Redis!')
+})
 
 app.get('/',(req,res) => {
     res.send({
