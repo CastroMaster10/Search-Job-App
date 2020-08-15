@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import {ListJobs} from './components/ListJobs'
 
-const API_URL = 'http://localhost:3001/jobs'
+const API_URL = 'https://api-search-app.castromaster10.vercel.app'
 
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
       const res = await fetch(API_URL)
       const json = await res.json();
       updateJobs(json)
+      console.log({json})
     } catch (error) {
       console.log('There was an error,', error)
       updateError(true)

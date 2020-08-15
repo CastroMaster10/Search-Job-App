@@ -9,9 +9,20 @@ const client = redis.createClient({
 });
 const { promisify } = require("util");
 const getAsync = promisify(client.get).bind(client);
+var CronJob = require('cron').CronJob;
+const gitHub = require('./models/github-api');
+var job = new CronJob('* * * * *', gitHub, null, true, 'America/Los_Angeles');
 
 client.on('connect', () => {
     console.log('Connected to Redis!')
+})
+
+
+//middleware
+app.use((req,res,next) => {
+    res.header("Access-Control-Allow-Origin", "https://client-search-app.vercel.app"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 })
 
 app.get('/',(req,res) => {
@@ -22,9 +33,10 @@ app.get('/',(req,res) => {
 
 app.get('/jobs', async(req,res) => {
     const jobs = await getAsync('mykey')
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
     res.send(jobs)
 })
+
+job.start();
 
 app.listen(port, (req,res) => {
     console.log(`Listening on http://localhost:${port} port`)
